@@ -1,0 +1,89 @@
+(defvar
+  tap-timeout   100
+  hold-timeout  200
+  tt $tap-timeout
+  ht $hold-timeout
+)
+
+(defalias
+  ;; layers
+  lsck (layer-switch colemak)
+  lssb (layer-switch symbols)
+  lsnv (layer-switch navigation)
+  ltsb (layer-toggle symbols)
+  thln (tap-hold $tt $ht spc (layer-toggle navigation)) ;; ltng (layer-toggle navigation)
+
+  ;; modifiers
+  thlm (tap-hold $tt $ht ; lmet)
+  thes (tap-hold $tt $ht esc lctl)
+  
+  ;; tap-holds
+  th1 (tap-hold $tt $ht 1 f1) 
+  th2 (tap-hold $tt $ht 2 f2)
+  th3 (tap-hold $tt $ht 3 f3)
+  th4 (tap-hold $tt $ht 4 f4)
+  th5 (tap-hold $tt $ht 5 f5)
+  th6 (tap-hold $tt $ht 6 f6)
+  th7 (tap-hold $tt $ht 7 f7)
+  th8 (tap-hold $tt $ht 8 f8)
+  th9 (tap-hold $tt $ht 9 f9)
+  th0 (tap-hold $tt $ht 0 f10)
+  th11 (tap-hold $tt $ht S-' f11)
+  th12 (tap-hold $tt $ht S-' f12)
+  thw (tap-hold $tt $ht S-tab C-w)
+  thf (tap-hold $tt $ht up C-f)
+  thp (tap-hold $tt $ht tab C-p)
+  tha (tap-hold $tt $ht bspc C-a)
+  tda (tap-dance $ht (@tha C-bspc S-home))
+  thr (tap-hold $tt $ht left C-r)
+  tdr (tap-dance $ht (@thr C-left home))
+  ths (tap-hold $tt $ht down C-s)
+  tht (tap-hold $tt $ht rght C-t)
+  tdt (tap-dance $ht (@tht C-rght end))
+  thd (tap-hold $tt $ht del C-d)
+  tdd (tap-dance $ht (@thd C-del S-end))
+  thv (tap-hold $tt $ht enter C-v)
+  thb (tap-hold $tt $ht ins C-b)
+  thm (tap-hold $tt $ht enter C-m)
+
+  ;; unicode
+  dq (unicode r#"""#)
+  lp (unicode "(")
+  rp (unicode ")")
+
+  ;; macros
+  kk (macro lctl spc esc)
+)
+
+(defsrc
+  esc  1    2    3    4    5    6    7    8    9    0    -    =    bspc
+  tab  q    w    e    r    t    y    u    i    o    p    [    ]    \
+  caps a    s    d    f    g    h    j    k    l    ;    '    ret
+  lsft z    x    c    v    b    n    m    ,    .    /    rsft
+  lctl lmet lalt           spc       ralt rmet rctl  
+)
+
+(deflayer colemak
+  esc  1    2    3    4    5    6    7    8    9    0    [    ]    XX
+  lalt q    w    f    p    g    j    l    u    y    `    '    XX   XX
+  lsft a    r    s    t    d    h    n    e    i    o    @thlm lrld
+  lctl z    x    c    v    b    k    m    ,    .    S-/  S-1
+  XX   XX @ltsb          @thln     XX   XX   XX   
+)
+
+(deflayer symbols
+  XX   1    2    3    4    5    6    7    8    9    0    [    ]    XX
+  lalt @th1 @th2 @th3 @th4 @th5 @th6 @th7 @th8 @th9 @th0 @th11 @th12 XX
+  lsft S-2  S-4  S-7  S-3  S-5  S--  -    S-=  =    S-`  S-;  XX
+  lctl @lp  @rp  [    ]    S-8  S-6  S-,  S-.  \    /    S-\
+  XX   XX   XX             spc       XX   XX   XX
+)
+
+(deflayer navigation
+  XX   1    2    3    4    5    6    7    8    9    0    [    ]    XX
+  lalt @thes @thw @thf @thp C-g C-j  C-l  C-u  C-y  C-`  XX   XX   XX
+  lsft @tda @tdr @ths @tdt @tdd C-h  C-n  C-e  C-i  C-o  ;    XX
+  lctl C-z  C-x  C-c  @thv @thb C-k  @thm XX   XX   XX   XX    
+  XX   XX   XX             XX        XX   XX   XX
+)
+
